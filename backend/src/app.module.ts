@@ -27,9 +27,11 @@ import { PrestamoModule } from './modules/prestamo.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [__dirname + '/database/entities/*.entity{.ts,.js}'],
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
 
     AuthModule,
