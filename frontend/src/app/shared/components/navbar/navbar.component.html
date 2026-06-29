@@ -1,0 +1,72 @@
+<nav class="nyu-navbar">
+  <div class="nyu-navbar__container">
+    <!-- Logo -->
+    <a routerLink="/catalogo" class="nyu-navbar__brand">
+      <img
+        src="assets/logos/nyulibraries-logo.svg"
+        alt="NYU Libraries"
+        class="nyu-navbar__logo"
+      />
+    </a>
+
+    <!-- Enlaces de navegación (escritorio) -->
+    <ul class="nyu-navbar__links">
+      <li>
+        <a
+          routerLink="/inicio"
+          routerLinkActive="active"
+          class="nyu-navbar__link"
+        >
+          Inicio
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/catalogo"
+          routerLinkActive="active"
+          class="nyu-navbar__link"
+        >
+          Catálogo
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/historial"
+          routerLinkActive="active"
+          class="nyu-navbar__link"
+        >
+          Historial
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/nueva-reserva"
+          routerLinkActive="active"
+          class="nyu-navbar__link"
+        >
+          Salas de estudio
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/multas"
+          routerLinkActive="active"
+          class="nyu-navbar__link"
+        >
+          Multas
+        </a>
+      </li>
+    </ul>
+
+    <!-- Acciones del lado derecho (avatar, cerrar sesión) -->
+    <div class="nyu-navbar__actions">
+      <!-- Avatar del usuario con iniciales -->
+      <div class="nyu-navbar__avatar" [title]="userName">
+        {{ userInitials }}
+      </div>
+
+      <!-- Botón cerrar sesión -->
+      <button class="nyu-navbar__logout-btn" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,158 @@
+<div class="main-page-container">
+  <div class="split-screen-container">
+
+    <!-- PANEL IZQUIERDO: Branding NYU -->
+    <div class="brand-side">
+      <div class="brand-content-wrapper">
+        <div class="libraries-logo-container">
+          <img
+            src="assets/logos/nyulibraries-logo.svg"
+            alt="NYU Libraries Logo"
+            class="libraries-logo"
+          >
+        </div>
+
+        <h1 class="university-name">SISTEMA DE BIBLIOTECA</h1>
+
+        <p class="university-tagline">
+          Gestiona tus préstamos de libros y reservas de espacios de la biblioteca universitaria.
+        </p>
+      </div>
+
+      <div class="brand-footer">
+        <span class="footer-text">NYU Libraries &copy; 2026</span>
+      </div>
+    </div>
+
+    <!-- PANEL DERECHO: Formulario de login -->
+    <div class="form-side">
+      <div class="login-card-wrapper">
+
+        <h2 class="welcome-title">Bienvenido al Portal</h2>
+        <p class="welcome-subtitle">Selecciona tu rol e ingresa tus credenciales</p>
+
+        <!-- SELECTOR DE ROL -->
+        <div class="role-selector">
+          <button
+            type="button"
+            class="role-btn"
+            (click)="cambiarRol('estudiante')"
+            [class.active]="rolActivo === 'estudiante'"
+            [class.inactive]="rolActivo !== 'estudiante'"
+          >
+            Estudiante
+          </button>
+
+          <button
+            type="button"
+            class="role-btn"
+            (click)="cambiarRol('administrador')"
+            [class.active]="rolActivo === 'administrador'"
+            [class.inactive]="rolActivo !== 'administrador'"
+          >
+            Administrador
+          </button>
+        </div>
+
+        <!-- FORMULARIO -->
+        <form
+          class="login-form"
+          #loginForm="ngForm"
+          (ngSubmit)="onSubmit(loginForm)"
+          novalidate
+        >
+
+          <!-- CAMPO CORREO -->
+          <div class="campo-formulario">
+            <label for="correo">CORREO INSTITUCIONAL</label>
+
+            <div
+              class="input-con-icono"
+              [class.error-border]="correoCtrl.invalid && loginForm.submitted"
+            >
+              <i class="bi bi-person-fill icono-input"></i>
+
+              <input
+                type="email"
+                id="correo"
+                name="correo"
+                [(ngModel)]="loginData.correo"
+                #correoCtrl="ngModel"
+                [placeholder]="rolActivo === 'estudiante' ? 'ej. alumno@nyu.edu' : 'ej. admin@nyu.edu'"
+                required
+                email
+              >
+            </div>
+
+            <small
+              class="texto-error"
+              *ngIf="correoCtrl.invalid && loginForm.submitted"
+            >
+              Ingresa un correo institucional válido.
+            </small>
+          </div>
+
+          <!-- CAMPO CONTRASEÑA -->
+          <div class="campo-formulario">
+            <label for="password">CONTRASEÑA</label>
+
+            <div
+              class="input-con-icono"
+              [class.error-border]="passCtrl.invalid && loginForm.submitted"
+            >
+              <i class="bi bi-lock-fill icono-input"></i>
+
+              <input
+                type="password"
+                id="password"
+                name="password"
+                [(ngModel)]="loginData.password"
+                #passCtrl="ngModel"
+                placeholder="Ingrese su contraseña"
+                required
+                minlength="6"
+              >
+            </div>
+
+            <div *ngIf="passCtrl.invalid && loginForm.submitted">
+              <small
+                class="texto-error"
+                *ngIf="passCtrl.errors?.['required']"
+              >
+                La contraseña es obligatoria.
+              </small>
+
+              <small
+                class="texto-error"
+                *ngIf="passCtrl.errors?.['minlength']"
+              >
+                Debe tener al menos 6 caracteres.
+              </small>
+            </div>
+          </div>
+
+          <!-- ERROR BACKEND / ROL -->
+          <p class="texto-error" *ngIf="mensajeError">
+            {{ mensajeError }}
+          </p>
+
+          <!-- BOTÓN SUBMIT -->
+          <button
+            type="submit"
+            class="submit-btn"
+            [disabled]="cargando"
+          >
+            {{ cargando ? 'Ingresando...' : 'Ingresar al Portal' }}
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-final-footer">
+    &copy; 2026 NYU Libraries - Sistema de Biblioteca y Reservas de Espacios
+  </div>
+</div>

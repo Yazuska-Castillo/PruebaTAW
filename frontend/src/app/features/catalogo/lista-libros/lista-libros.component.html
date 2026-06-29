@@ -1,0 +1,149 @@
+<app-navbar></app-navbar>
+
+<main class="catalogo-page">
+
+  <!-- ── Encabezado de página ── -->
+  <header class="catalogo-header">
+    <div class="catalogo-header__inner">
+      <div class="catalogo-header__title-row">
+        <div>
+          <h1 class="catalogo-header__title">Catálogo de libros</h1>
+          <p class="catalogo-header__subtitle">
+            {{ librosFiltrados.length }}
+            {{ librosFiltrados.length === 1 ? 'resultado' : 'resultados' }} encontrados
+          </p>
+        </div>
+      </div>
+
+      <!-- Barra de búsqueda -->
+      <div class="catalogo-search">
+        <span class="catalogo-search__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+          </svg>
+        </span>
+        <input
+          type="search"
+          class="catalogo-search__input"
+          placeholder="Buscar por título o autor..."
+          [(ngModel)]="searchQuery"
+          aria-label="Buscar libros"
+        />
+        <button
+          *ngIf="searchQuery"
+          class="catalogo-search__clear"
+          (click)="searchQuery=''"
+          aria-label="Limpiar búsqueda"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Chips de filtro por categoría -->
+      <div class="catalogo-filters">
+        <button
+          *ngFor="let filtro of filtros"
+          class="catalogo-filters__chip"
+          [class.active]="filtroActivo === filtro.toLowerCase()"
+          (click)="setFiltro(filtro)"
+        >
+          {{ filtro }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Contenido ── -->
+  <section class="catalogo-content">
+    <div class="catalogo-content__inner">
+
+      <!-- Estado de carga -->
+      <div *ngIf="cargando" class="catalogo-empty">
+        <p class="catalogo-empty__text">Cargando catálogo...</p>
+      </div>
+
+      <!-- Error de carga -->
+      <div *ngIf="mensajeError && !cargando" class="catalogo-empty">
+        <p class="catalogo-empty__text" style="color: #c0392b;">{{ mensajeError }}</p>
+        <button class="catalogo-empty__reset" (click)="cargarLibros()">Reintentar</button>
+      </div>
+
+      <!-- Estado vacío: no hay resultados con el filtro activo -->
+      <div *ngIf="!cargando && !mensajeError && librosFiltrados.length === 0" class="catalogo-empty">
+        <div class="catalogo-empty__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
+            viewBox="0 0 24 24" stroke="#AB82C5" stroke-width="1.2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <p class="catalogo-empty__text">No se encontraron libros con esos criterios.</p>
+        <button class="catalogo-empty__reset" (click)="searchQuery=''; setFiltro('todos')">
+          Limpiar filtros
+        </button>
+      </div>
+
+      <!-- Grilla de tarjetas de libros -->
+      <div *ngIf="!cargando && !mensajeError && librosFiltrados.length > 0" class="catalogo-grid">
+        <article
+          *ngFor="let libro of librosFiltrados"
+          class="book-card"
+          [routerLink]="['/catalogo', libro.idLibro]"
+          [attr.aria-label]="(libro.titulo ?? '') + ' por ' + (libro.autor ?? '')"
+        >
+          <!-- Portada del libro con gradiente según categoría -->
+          <div
+            class="book-card__cover"
+            [style.background]="'linear-gradient(145deg, ' + getCoverColor(libro.categoria) + ', ' + getCoverAccent(libro.categoria) + ')'"
+          >
+            <span class="book-card__genre-tag">{{ libro.categoria }}</span>
+            <span class="book-card__initial">{{ getInitial(libro.titulo) }}</span>
+            <svg class="book-card__cover-icon" xmlns="http://www.w3.org/2000/svg"
+              width="40" height="40" fill="none" viewBox="0 0 24 24"
+              stroke="rgba(255,255,255,0.18)" stroke-width="1.2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+
+          <!-- Información textual del libro -->
+          <div class="book-card__info">
+            <h3 class="book-card__title">{{ libro.titulo }}</h3>
+            <p class="book-card__author">{{ libro.autor }}</p>
+            <p class="book-card__year">{{ getAnio(libro.anio) }}</p>
+
+            <div class="book-card__footer">
+              <!-- Badge de disponibilidad -->
+              <span
+                class="book-card__badge"
+                [ngClass]="{
+                  'badge--available':   libro.disponible,
+                  'badge--checked-out': !libro.disponible
+                }"
+              >
+                <span class="badge__dot"></span>
+                <span>{{ getTextoEstadoLibro(libro) }}</span>
+              </span>
+
+              <!-- Botón deshabilitado si no hay stock -->
+              <button
+                class="book-card__cta"
+                [disabled]="!libro.disponible"
+                [attr.aria-label]="'Solicitar préstamo de ' + libro.titulo"
+              >
+                Solicitar
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+</main>

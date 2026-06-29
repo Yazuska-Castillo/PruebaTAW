@@ -1,0 +1,129 @@
+/* ── NYU Navbar ── */
+.nyu-navbar {
+  background-color: #56068c;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.nyu-navbar__container {
+  max-width: 1280px;
+  min-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* ── Brand ── */
+.nyu-navbar__brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nyu-navbar__logo {
+  height: 36px;
+  width: auto;
+}
+
+/* ── Nav Links ── */
+.nyu-navbar__links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nyu-navbar__link {
+  display: inline-block;
+  padding: 8px 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nyu-navbar__link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nyu-navbar__link.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+.nyu-navbar__link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+/* ── Right Actions ── */
+.nyu-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.nyu-navbar__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #702b9d;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  letter-spacing: 0.05em;
+}
+
+.nyu-navbar__logout-btn {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nyu-navbar__logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
+}

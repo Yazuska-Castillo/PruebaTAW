@@ -1,0 +1,296 @@
+/* =========================================
+   HOST Y CONTENEDOR PRINCIPAL
+   ========================================= */
+:host {
+    display: block;
+    /* min-height permite que el contenido crezca sin clipar cuando aparecen errores */
+    min-height: 100vh;
+}
+
+.main-page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-primary);
+    padding: 40px 20px;
+}
+
+/* =========================================
+   CONTENEDOR DIVIDIDO (split screen)
+   ========================================= */
+.split-screen-container {
+    width: 90%;
+    max-width: 1100px;
+    /* min-height en lugar de height fijo: permite crecer cuando aparecen mensajes de error */
+    min-height: 80vh;
+    background: var(--color-white);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden;
+}
+
+/* =========================================
+   LADO IZQUIERDO — Branding (morado)
+   ========================================= */
+.brand-side {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--color-violet) 0%, var(--color-deep-violet) 100%);
+    color: var(--color-white);
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.libraries-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.libraries-logo {
+    max-width: 300px;
+    max-height: 60px;
+    object-fit: contain;
+}
+
+.university-name {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 0 0 15px 0;
+}
+
+.university-tagline {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--color-light-violet-2);
+    max-width: 360px;
+}
+
+.brand-footer {
+    position: absolute;
+    bottom: 30px;
+    left: 60px;
+    right: 60px;
+}
+
+.footer-text {
+    font-size: 13px;
+    color: var(--color-light-violet-2);
+    font-weight: 300;
+}
+
+/* =========================================
+   LADO DERECHO — Formulario (blanco)
+   ========================================= */
+.form-side {
+    flex: 1;
+    background: var(--color-white);
+    padding: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card-wrapper {
+    width: 100%;
+    max-width: 400px;
+}
+
+.welcome-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0 0 8px 0;
+}
+
+.welcome-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--color-gray-mid-1);
+    margin: 0 0 28px 0;
+}
+
+/* =========================================
+   SELECTOR DE ROL
+   ========================================= */
+.role-selector {
+    display: flex;
+    background-color: var(--color-light-violet-3);
+    border-radius: 50px;
+    padding: 5px;
+    margin-bottom: 28px;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-primary);
+}
+
+.role-btn.active {
+    background-color: var(--color-violet);
+    color: var(--color-white);
+}
+
+.role-btn.inactive {
+    background-color: transparent;
+    color: var(--color-violet);
+}
+
+/* =========================================
+   FORMULARIO E INPUTS
+   campo-formulario reemplaza a input-group para evitar
+   conflicto con la clase .input-group de Bootstrap
+   ========================================= */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-formulario {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-formulario label {
+    font-size: 12px;
+    color: var(--color-gray-mid-1);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+/* Bordes redondeados moderados, sin llegar a pill completo */
+.input-con-icono {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-light-violet-3);
+    border-radius: 12px;
+    padding: 0 18px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.input-con-icono:focus-within {
+    border-color: var(--color-violet);
+    background-color: var(--color-white);
+}
+
+.icono-input {
+    font-size: 16px;
+    margin-right: 10px;
+    color: var(--color-gray-mid-1);
+    flex-shrink: 0;
+}
+
+.input-con-icono input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 14px 0;
+    font-size: 15px;
+    font-family: var(--font-primary);
+    color: var(--color-black);
+    min-width: 0;
+}
+
+.input-con-icono input:focus {
+    outline: none;
+}
+
+/* =========================================
+   ESTADOS DE ERROR EN INPUTS
+   ========================================= */
+.error-border {
+    border: 2px solid var(--color-magenta) !important;
+    background-color: #fff0f5 !important;
+}
+
+.error-border .icono-input {
+    color: var(--color-magenta);
+}
+
+.texto-error {
+    display: block;
+    color: var(--color-magenta);
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-left: 6px;
+}
+
+/* =========================================
+   BOTÓN PRINCIPAL DE LOGIN
+   ========================================= */
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--color-violet);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(87, 6, 140, 0.2);
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
+}
+
+.submit-btn:hover {
+    background-color: var(--color-ultra-violet);
+}
+
+/* =========================================
+   FOOTER INFERIOR DE LA PÁGINA
+   ========================================= */
+.page-final-footer {
+    text-align: center;
+    padding: 24px 0 0 0;
+    font-size: 12px;
+    color: var(--color-gray-mid-1);
+}
+
+/* =========================================
+   RESPONSIVE — pantalla MD (tablets ~768px)
+   ========================================= */
+@media (max-width: 992px) {
+    .brand-side {
+        padding: 40px 30px;
+        flex: 1;
+    }
+
+    .form-side {
+        padding: 40px 30px;
+    }
+
+    .university-name {
+        font-size: 24px;
+    }
+
+    .university-tagline {
+        font-size: 14px;
+    }
+
+    .libraries-logo {
+        max-width: 220px;
+    }
+}

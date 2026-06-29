@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+<nav class="detalle-breadcrumb">
+  <div class="detalle-breadcrumb__inner">
+    <a routerLink="/nueva-reserva" class="detalle-breadcrumb__link">Horarios</a>
+    <span class="detalle-breadcrumb__sep">›</span>
+    <span class="detalle-breadcrumb__current">{{ sala.nombreSala }}</span>
+  </div>
+</nav>
+
+<section class="detalle-content">
+  <div class="detalle-content__inner">
+    <div class="row g-4 align-items-start">
+
+      <div class="col-md-4 col-lg-3">
+        <div class="detalle-cover" [ngStyle]="{'background': getColorFondo(sala.tipo)}">
+          <span class="detalle-cover__genre-tag">{{ sala.tipo }}</span>
+          <span class="detalle-cover__initial">{{ sala.nombreSala.charAt(0) }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-8 col-lg-9">
+        <div class="detalle-info">
+          
+          <div class="detalle-info__header">
+            <h1 class="detalle-info__title">{{ sala.nombreSala }}</h1>
+            <p class="detalle-info__author">Ubicación: {{ sala.ubicacion }}</p>
+          </div>
+
+          <div class="detalle-info__meta">
+            <div class="meta-item">
+              <span class="meta-label">Capacidad</span>
+              <span class="meta-value">{{ sala.capacidad }} personas</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Equipamiento</span>
+              <span class="meta-value">{{ sala.equipamiento }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Estado</span>
+              <span class="meta-value status-disponible">Disponible</span>
+            </div>
+          </div>
+
+          <div class="detalle-acciones">
+            <p class="review-text">
+              Estás a punto de solicitar la <strong>{{ sala.nombreSala }}</strong> para el día 
+              <span class="badge-review-dia">{{ horarioReserva.dia }}</span> en el bloque 
+              <span class="badge-review-hora">{{ horarioReserva.rango }}</span>.
+            </p>
+
+            <div class="detalle-acciones__botones">
+              <button class="btn-solicitar" (click)="confirmarReservaFinal()">
+                Confirmar Reserva
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

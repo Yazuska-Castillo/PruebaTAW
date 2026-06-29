@@ -1,0 +1,390 @@
+/* ── Detalle de Libro — Page ── */
+.detalle-page {
+  background-color: #f4f0f8;
+  min-height: calc(100vh - 64px);
+}
+
+/* ── Breadcrumb ── */
+.detalle-breadcrumb {
+  background: #ffffff;
+  border-bottom: 1px solid #EEE6F3;
+  padding: 14px 0;
+}
+
+.detalle-breadcrumb__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+}
+
+.detalle-breadcrumb__link {
+  color: #57068C;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #330662;
+    text-decoration: underline;
+  }
+}
+
+.detalle-breadcrumb__sep {
+  color: #B8B8B8;
+  font-size: 16px;
+}
+
+.detalle-breadcrumb__current {
+  color: #6D6D6D;
+  font-weight: 400;
+  max-width: 420px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Content Area ── */
+.detalle-content {
+  padding: 36px 0 56px;
+}
+
+.detalle-content__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Cover ── */
+.detalle-cover {
+  border-radius: 16px;
+  height: 340px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(87, 6, 140, 0.2);
+}
+
+.detalle-cover__genre-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.detalle-cover__initial {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 140px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1;
+  user-select: none;
+  position: absolute;
+}
+
+.detalle-cover__icon {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  opacity: 0.5;
+}
+
+/* ── Ubicación (debajo de la portada) ── */
+.detalle-ubicacion {
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #EEE6F3;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #6D6D6D;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+
+  svg {
+    color: #7B5AA6;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+}
+
+/* ── Info Card ── */
+.detalle-info {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 2px 12px rgba(87, 6, 140, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Encabezado */
+.detalle-info__header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detalle-info__titulo {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a0033;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.detalle-info__autor {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+/* ── Badges ── */
+.detalle-info__badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detalle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+
+  &--genero {
+    background: #EEE6F3;
+    color: #57068C;
+  }
+
+  &--available {
+    background: #EEE6F3;
+    color: #57068C;
+    .detalle-badge__dot { background: #57068C; }
+  }
+
+  &--checked-out {
+    background: #f0f0f0;
+    color: #404040;
+    .detalle-badge__dot { background: #6D6D6D; }
+  }
+
+  &--reserved {
+    background: #FFF4E5;
+    color: #B45309;
+    .detalle-badge__dot { background: #F59E0B; }
+  }
+}
+
+.detalle-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Metadatos ── */
+.detalle-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  border: 1px solid #EEE6F3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.detalle-meta__row {
+  display: flex;
+  align-items: center;
+  padding: 11px 16px;
+  border-bottom: 1px solid #EEE6F3;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.detalle-meta__label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6D6D6D;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.detalle-meta__valor {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #1a0033;
+  margin: 0;
+
+  &--stock {
+    font-weight: 600;
+    color: #57068C;
+  }
+}
+
+/* ── Descripción ── */
+.detalle-descripcion__titulo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #330662;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detalle-descripcion__texto {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── Acciones ── */
+.detalle-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+  border-top: 1px solid #EEE6F3;
+}
+
+/* Alertas */
+.detalle-alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  &--error {
+    background: #FFF0F6;
+    color: #9D0047;
+    border: 1px solid #FFBDD9;
+    svg { color: #FB0F78; }
+  }
+
+  &--warning {
+    background: #FFF8ED;
+    color: #92400E;
+    border: 1px solid #FDE68A;
+    svg { color: #F59E0B; }
+  }
+
+  &--info {
+    background: #F0F9FF;
+    color: #0C4A6E;
+    border: 1px solid #BAE6FD;
+    svg { color: #59B2D1; }
+  }
+}
+
+.detalle-alerta__link {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 4px;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+/* Botones */
+.detalle-acciones__botones {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-solicitar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background: #57068C;
+  color: #ffffff;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #702B9D;
+    box-shadow: 0 4px 16px rgba(87, 6, 140, 0.3);
+  }
+
+  &:disabled {
+    background: #D6D6D6;
+    color: #B8B8B8;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.btn-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
+  color: #57068C;
+  border: 1.5px solid #57068C;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: #EEE6F3;
+  }
+}

@@ -1,0 +1,191 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.horario-card-wrapper {
+    background: var(--color-white);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+/* --- Tabla --- */
+.horario-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px; 
+}
+
+.horario-table th {
+    color: var(--color-deep-violet);
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.hora-cell {
+    font-weight: 600;
+    color: var(--color-deep-violet);
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* --- Bloque Hora --- */
+.bloque-cell {
+    height: 65px;
+    border-radius: 12px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+/* Estado: Disponible */
+.disponible {
+    background-color: var(--color-light-violet-3);
+    color: var(--color-violet);
+    cursor: pointer;
+}
+
+.disponible:hover {
+    background-color: var(--color-light-violet-2);
+    color: var(--color-white);
+    transform: scale(0.96);
+}
+
+/* Estado: Seleccionado */
+.seleccionado {
+    background-color: var(--color-teal);
+    color: var(--color-white);
+    box-shadow: 0 4px 10px rgba(0, 155, 138, 0.3);
+    cursor: pointer;
+}
+
+/* Estado: Agotado  */
+.agotado {
+    background-color: var(--color-gray-light);
+    color: var(--color-gray-mid-1);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ==========================================
+   ESTILOS DEL MODAL (POPUP)
+   ========================================== */
+
+.custom-modal {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.custom-header {
+    background: linear-gradient(135deg, var(--color-violet) 0%, var(--color-deep-violet) 100%);
+    color: var(--color-white);
+    border-bottom: none;
+    padding: 20px 25px;
+}
+
+.category-title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+}
+
+.text-violet {
+    color: var(--color-violet);
+}
+
+.text-teal {
+    color: var(--color-teal);
+}
+
+/* --- LISTA DE SALAS (BOTONES) --- */
+.room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.room-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-light-violet-3);
+    border-radius: 15px;
+    padding: 15px 20px;
+    text-align: left;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.room-btn:hover {
+    background-color: var(--color-light-violet-3);
+    border-color: var(--color-light-violet-2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* --- TEXTOS INTERNOS DEL BOTÓN --- */
+.room-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-name {
+    font-weight: 700;
+    color: var(--color-black);
+    font-size: 15px;
+}
+
+.room-location {
+    font-size: 12px;
+    color: var(--color-gray-mid-1);
+    margin-top: 4px;
+}
+
+/* --- PÍLDORAS DE ACCIÓN ("Reservar") --- */
+.room-action-pill, .room-action-pill-teal {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Color para Salas de Estudio */
+.room-action-pill {
+    background-color: var(--color-light-violet-3);
+    color: var(--color-violet);
+}
+
+/* Color para Auditorios */
+.room-action-pill-teal {
+    background-color: rgba(0, 155, 138, 0.1);
+    color: var(--color-teal);
+}
+
+/* Efectos Hover */
+.room-btn:hover .room-action-pill {
+    background-color: var(--color-violet);
+    color: var(--color-white);
+}
+
+.room-btn:hover .room-action-pill-teal {
+    background-color: var(--color-teal);
+    color: var(--color-white);
+}
+
+.tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;                      
+    width: 100%;                   
+}

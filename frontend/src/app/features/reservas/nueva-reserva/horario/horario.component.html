@@ -1,0 +1,95 @@
+<div class="horario-card-wrapper">
+    <div class="table-responsive">
+        <table class="horario-table">
+            
+            <thead>
+                <tr>
+                    <th class="hora-col">Hora</th>
+                    <th *ngFor="let dia of dias">{{ dia }}</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+              <tr *ngFor="let b of bloques">
+                <td class="hora-cell">{{ b.rango }}</td>
+        
+                <td *ngFor="let dia of dias" 
+                class="bloque-cell"
+                [class.agotado]="esAgotado(dia, b.id)"
+                [class.seleccionado]="esSeleccionado(dia, b.id)"
+                [class.disponible]="!esAgotado(dia, b.id) && !esSeleccionado(dia, b.id)"
+                (click)="seleccionarCelda(dia, b.id)"
+                [attr.data-bs-toggle]="esAgotado(dia, b.id) ? null : 'modal'" 
+                [attr.data-bs-target]="esAgotado(dia, b.id) ? null : '#modalSalas'">
+            
+                <span class="status-text" *ngIf="esAgotado(dia, b.id)">Sin cupo</span>
+                <span class="status-text" *ngIf="esSeleccionado(dia, b.id)">Seleccionado</span>
+                <span class="status-text" *ngIf="!esAgotado(dia, b.id) && !esSeleccionado(dia, b.id)">Salas Disponibles</span>
+
+                <div class="tags-grid mt-1" *ngIf="!esAgotado(dia, b.id) && !esSeleccionado(dia, b.id)">
+                  <span class="badge bg-light text-violet border border-violet rounded-pill tag-sala">
+                    Estudio: {{ contarSalas('Estudio') }}
+                  </span>
+                  <span class="badge bg-light text-teal border border-teal rounded-pill tag-sala">
+                    Auditorio: {{ contarSalas('Auditorio') }}
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSalas" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content custom-modal">
+      
+      <div class="modal-header custom-header">
+        <h5 class="modal-title fw-bold">Salas Disponibles</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body p-4">
+        <div class="row g-4">
+          
+          <div class="col-md-6">
+            <h6 class="category-title text-violet"> Salas de Estudio</h6>
+            <div class="room-list">
+              <ng-container *ngFor="let sala of allSalas">
+                <button *ngIf="sala.tipo === 'Estudio'" 
+                        class="room-btn"
+                        data-bs-dismiss="modal" 
+                        (click)="irADetalles(sala)">
+                  <div class="room-info">
+                    <span class="room-name">{{ sala.nombreSala }}</span>
+                    <span class="room-location">{{ sala.ubicacion }}</span>
+                  </div>
+                  <span class="room-action-pill">Reservar</span>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h6 class="category-title text-teal">Auditorios</h6>
+            <div class="room-list">
+              <ng-container *ngFor="let sala of allSalas">
+                <button *ngIf="sala.tipo === 'Auditorio'" 
+                        class="room-btn"
+                        data-bs-dismiss="modal" 
+                        (click)="irADetalles(sala)">
+                  <div class="room-info">
+                    <span class="room-name">{{ sala.nombreSala }}</span>
+                    <span class="room-location">{{ sala.ubicacion }}</span>
+                  </div>
+                  <span class="room-action-pill-teal">Reservar</span>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

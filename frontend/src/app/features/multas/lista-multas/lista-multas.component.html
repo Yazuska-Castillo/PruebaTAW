@@ -1,0 +1,348 @@
+<app-navbar></app-navbar>
+
+<main class="multas-page">
+
+  <!-- ══ Encabezado de página ══ -->
+  <header class="multas-header">
+    <div class="multas-header__inner">
+
+      <!-- Título + stats inline secundarios -->
+      <div class="multas-header__top">
+        <div>
+          <h1 class="multas-header__title">Historial de multas</h1>
+          <p class="multas-header__subtitle">
+            {{ todasLasMultas.length }}
+            {{ todasLasMultas.length === 1 ? 'multa registrada' : 'multas registradas' }}
+            <span *ngIf="cantidadPagadas > 0">
+              &nbsp;·&nbsp;{{ cantidadPagadas }} pagada{{ cantidadPagadas === 1 ? '' : 's' }}
+            </span>
+            <span *ngIf="totalPagado > 0">
+              &nbsp;·&nbsp;$ {{ formatearMonto(totalPagado) }} pagados
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Banner contextual: cambia según si hay deuda pendiente -->
+      <div *ngIf="!cargando && todasLasMultas.length > 0">
+
+        <!-- Con multas pendientes -->
+        <div *ngIf="cantidadPendientes > 0" class="multas-banner multas-banner--pendiente">
+          <div class="multas-banner__icono">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+          </div>
+          <div class="multas-banner__texto">
+            <span class="multas-banner__principal">
+              Tienes {{ cantidadPendientes }}
+              {{ cantidadPendientes === 1 ? 'multa pendiente' : 'multas pendientes' }} de pago
+            </span>
+            <span class="multas-banner__secundario" *ngIf="totalPendiente > 0">
+              Total a pagar: <strong>$ {{ formatearMonto(totalPendiente) }}</strong>
+            </span>
+            <span class="multas-banner__secundario" *ngIf="totalPendiente === 0">
+              Monto pendiente de revisión por administración
+            </span>
+          </div>
+        </div>
+
+        <!-- Sin multas pendientes -->
+        <div *ngIf="cantidadPendientes === 0" class="multas-banner multas-banner--al-dia">
+          <div class="multas-banner__icono">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <div class="multas-banner__texto">
+            <span class="multas-banner__principal">¡Estás al día!</span>
+            <span class="multas-banner__secundario">No tienes multas pendientes de pago.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de búsqueda por libro -->
+      <div class="multas-search">
+        <span class="multas-search__icono">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+          </svg>
+        </span>
+        <input
+          type="search"
+          class="multas-search__input"
+          placeholder="Buscar por título o autor del libro..."
+          [(ngModel)]="searchQuery"
+          aria-label="Buscar multas por libro"
+        />
+        <button
+          *ngIf="searchQuery"
+          class="multas-search__clear"
+          (click)="searchQuery = ''"
+          aria-label="Limpiar búsqueda"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ══ Contenido principal ══ -->
+  <section class="multas-content">
+    <div class="multas-content__inner">
+
+      <!-- ── Chips de filtro ── -->
+      <div class="multas-filtros">
+        <button
+          class="multas-filtros__chip"
+          [class.active]="filtroActivo === 'todas'"
+          (click)="setFiltro('todas')"
+        >
+          Todas ({{ todasLasMultas.length }})
+        </button>
+        <button
+          class="multas-filtros__chip multas-filtros__chip--pendiente"
+          [class.active]="filtroActivo === 'pendientes'"
+          (click)="setFiltro('pendientes')"
+        >
+          Pendientes ({{ cantidadPendientes }})
+        </button>
+        <button
+          class="multas-filtros__chip"
+          [class.active]="filtroActivo === 'pagadas'"
+          (click)="setFiltro('pagadas')"
+        >
+          Pagadas ({{ cantidadPagadas }})
+        </button>
+      </div>
+
+      <!-- ── Alertas de error / éxito ── -->
+      <div *ngIf="mensajeError" class="multas-alerta multas-alerta--error">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+        </svg>
+        <span>{{ mensajeError }}</span>
+      </div>
+
+      <div *ngIf="mensajeExito" class="multas-alerta multas-alerta--exito">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <span>{{ mensajeExito }}</span>
+      </div>
+
+      <!-- ── Estado de carga ── -->
+      <div *ngIf="cargando" class="multas-loading">
+        <div class="multas-loading__spinner"></div>
+        <p class="multas-loading__texto">Cargando multas...</p>
+      </div>
+
+      <!-- ── Estado vacío ── -->
+      <div *ngIf="!cargando && multasFiltradas.length === 0" class="multas-vacio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="none"
+          viewBox="0 0 24 24" stroke="#AB82C5" stroke-width="1.2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+        </svg>
+        <p class="multas-vacio__texto" *ngIf="filtroActivo === 'todas'">
+          No tienes multas registradas.
+        </p>
+        <p class="multas-vacio__texto" *ngIf="filtroActivo === 'pendientes'">
+          No tienes multas pendientes. ¡Estás al día!
+        </p>
+        <p class="multas-vacio__texto" *ngIf="filtroActivo === 'pagadas'">
+          Aún no tienes multas pagadas.
+        </p>
+      </div>
+
+      <!-- ── Listado de tarjetas de multas ── -->
+      <div *ngIf="!cargando && multasFiltradas.length > 0" class="multas-lista">
+
+        <article
+          *ngFor="let item of multasFiltradas"
+          class="multa-card"
+          [class.multa-card--pendiente]="item.multa.estadoPago === 'pendiente'"
+          [class.multa-card--pagada]="item.multa.estadoPago === 'pagada'"
+        >
+
+          <!-- ── Cabecera de la tarjeta: libro + badge estado pago ── -->
+          <div class="multa-card__header">
+            <div class="multa-card__libro-info">
+              <div class="multa-card__libro-icono">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="multa-card__titulo">{{ item.libro.titulo }}</h3>
+                <p class="multa-card__autor">{{ item.libro.autor }}</p>
+              </div>
+            </div>
+
+            <!-- Badge estado de pago: objeto literal igual que en el catálogo de libros -->
+            <span class="badge-pago" [ngClass]="{
+              'badge-pago--pendiente': item.multa.estadoPago === 'pendiente',
+              'badge-pago--pagada':    item.multa.estadoPago === 'pagada'
+            }">
+              <span class="badge-pago__dot"></span>
+              {{ item.multa.estadoPago === 'pendiente' ? 'Pendiente' : 'Pagada' }}
+            </span>
+          </div>
+
+          <!-- ── Detalles de la multa ── -->
+          <div class="multa-card__body">
+
+            <div class="multa-card__detalles">
+
+              <!-- Fecha de generación de la multa -->
+              <div class="multa-card__dato">
+                <span class="multa-card__dato-label">Multa generada</span>
+                <span class="multa-card__dato-valor">
+                  {{ item.multa.fechaGeneracion | date:'dd/MM/yyyy' }}
+                </span>
+              </div>
+
+              <!-- Fecha límite de devolución -->
+              <div class="multa-card__dato">
+                <span class="multa-card__dato-label">Fecha límite</span>
+                <span class="multa-card__dato-valor">
+                  {{ item.prestamo.fechaDevolucionEsperada | date:'dd/MM/yyyy' }}
+                </span>
+              </div>
+
+              <!-- Días de atraso -->
+              <div class="multa-card__dato">
+                <span class="multa-card__dato-label">Días de atraso</span>
+                <span class="multa-card__dato-valor multa-card__dato-valor--atraso">
+                  {{ item.prestamo.diasAtraso }} días
+                </span>
+              </div>
+
+              <!-- Estado del libro -->
+              <div class="multa-card__dato">
+                <span class="multa-card__dato-label">Estado del libro</span>
+                <span class="badge-libro" [ngClass]="{
+                    'badge-libro--devuelto':   item.multa.estadoLibro === 'devuelto_bueno',
+                    'badge-libro--extraviado': item.multa.estadoLibro === 'perdido_total',
+                    'badge-libro--pendiente':  item.multa.estadoLibro === 'no_devuelto'
+                  }">
+                  {{ getTextoEstadoLibro(item.multa.estadoLibro) }}
+                </span>
+              </div>
+
+              <!-- Fecha de pago (solo si ya se pagó) -->
+              <div class="multa-card__dato" *ngIf="item.multa.estadoPago === 'pagada' && item.multa.fechaPago">
+                <span class="multa-card__dato-label">Fecha de pago</span>
+                <span class="multa-card__dato-valor">
+                  {{ item.multa.fechaPago | date:'dd/MM/yyyy' }}
+                </span>
+              </div>
+
+            </div>
+
+            <!-- Monto + acción -->
+            <div class="multa-card__footer">
+
+              <!-- Monto conocido -->
+              <div *ngIf="item.multa.monto !== null" class="multa-card__monto-bloque">
+                <span class="multa-card__monto-label">
+                  {{ item.multa.estadoPago === 'pagada' ? 'Monto pagado' : 'Monto a pagar' }}
+                </span>
+                <span class="multa-card__monto-valor"
+                  [class.multa-card__monto-valor--pendiente]="item.multa.estadoPago === 'pendiente'"
+                  [class.multa-card__monto-valor--pagada]="item.multa.estadoPago === 'pagada'"
+                >
+                  $ {{ formatearMonto(item.multa.monto) }}
+                </span>
+              </div>
+
+              <!-- Monto por determinar (admin aún no decide) -->
+              <div *ngIf="item.multa.monto === null" class="multa-card__monto-bloque">
+                <span class="multa-card__monto-label">Monto</span>
+                <span class="multa-card__monto-indeterminado">Por determinar</span>
+              </div>
+
+              <!-- Acciones -->
+              <div class="multa-card__acciones">
+
+                <!-- Botón pagar: solo si tiene monto y está pendiente -->
+                <button
+                  *ngIf="item.multa.estadoPago === 'pendiente' && item.multa.puedePagar"
+                  class="btn-pagar"
+                  (click)="pagarMulta(item.multa.idMulta)"
+                  [disabled]="pagandoId === item.multa.idMulta"
+                >
+                  <span *ngIf="pagandoId !== item.multa.idMulta">Pagar multa</span>
+                  <span *ngIf="pagandoId === item.multa.idMulta" class="btn-pagar__cargando">
+                    Procesando...
+                  </span>
+                </button>
+
+                <!-- En revisión: admin no ha tomado decisión -->
+                <div *ngIf="item.multa.estadoPago === 'pendiente' && item.multa.requiereDecision"
+                  class="multa-card__en-revision">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  En revisión
+                </div>
+
+                <!-- Pagada: icono de confirmación -->
+                <div *ngIf="item.multa.estadoPago === 'pagada'" class="multa-card__pagada-ok">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                  Saldada
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Mensaje informativo para el usuario -->
+            <div *ngIf="item.multa.mensajeUsuario" class="multa-card__mensaje multa-card__mensaje--info">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+              </svg>
+              <span>{{ item.multa.mensajeUsuario }}</span>
+            </div>
+
+            <!-- Mensaje cuando el admin aún no decide -->
+            <div *ngIf="item.multa.mensajeAdmin" class="multa-card__mensaje multa-card__mensaje--admin">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+              </svg>
+              <span>{{ item.multa.mensajeAdmin }}</span>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>

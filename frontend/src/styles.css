@@ -1,0 +1,48 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* ── NYU Library — Design Tokens ── */
+:root {
+  /* Primary */
+  --color-violet:         #57068C;
+  --color-black:          #000000;
+  --color-white:          #FFFFFF;
+
+  /* Secondary Violets */
+  --color-ultra-violet:   #702B9D;
+  --color-deep-violet:    #330662;
+  --color-light-violet-1: #7B5AA6;
+  --color-light-violet-2: #AB82C5;
+  --color-light-violet-3: #EEE6F3;
+
+  /* Neutral Grays */
+  --color-gray-dark:      #404040;
+  --color-gray-mid-1:     #6D6D6D;
+  --color-gray-mid-2:     #B8B8B8;
+  --color-gray-light:     #D6D6D6;
+
+  /* Accents */
+  --color-teal:           #009B8A;
+  --color-magenta:        #FB0F78;
+  --color-cyan:           #59B2D1;
+  --color-yellow:         #F4EC51;
+
+  /* Typography */
+  --font-primary:   'Montserrat', sans-serif;
+  --font-secondary: 'Frank Ruhl Libre', serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: #f8f5fc;
+  color: var(--color-gray-dark);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}

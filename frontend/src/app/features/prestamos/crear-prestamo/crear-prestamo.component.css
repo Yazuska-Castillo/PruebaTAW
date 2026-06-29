@@ -1,0 +1,194 @@
+/* ── Página de crear préstamo ── */
+.crear-prestamo__page {
+  background-color: #f4f0f8;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.crear-prestamo__inner {
+  width: 100%;
+  max-width: 480px;
+}
+
+.container-prestamo {
+  background-color: #eee6f3;
+  padding: 28px 32px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(87, 6, 140, 0.07);
+}
+
+.container-prestamo__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #330662;
+  margin: 0 0 16px 0;
+}
+
+/* ── Tarjeta del libro ── */
+.book-card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(87, 6, 140, 0.07);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+/* Cover */
+.book-card__cover {
+  height: 140px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.book-card__genre-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.book-card__initial {
+  font-family: "Frank Ruhl Libre", serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.22);
+  line-height: 1;
+  user-select: none;
+  position: absolute;
+}
+
+.book-card__cover-icon {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  opacity: 0.5;
+}
+
+/* Info */
+.book-card__info {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.book-card__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a0033;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.book-card__author {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6d6d6d;
+  margin: 0;
+}
+
+.book-card__year {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #b8b8b8;
+  margin: 0;
+}
+
+/* ── Formulario ── */
+.prestamo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prestamo-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prestamo-form__label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6d6d6d;
+}
+
+.prestamo-form__input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
+  border-radius: 10px;
+  border: 1.5px solid #d6d6d6;
+  padding: 10px 14px;
+  outline: none;
+  background: #ffffff;
+  color: #330662;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: #57068c;
+    box-shadow: 0 0 0 3px rgba(87, 6, 140, 0.12);
+  }
+}
+
+/* Error en inputs */
+.error-border {
+  border: 2px solid var(--color-magenta) !important;
+  background-color: #fff0f5 !important;
+}
+
+.texto-error {
+  display: block;
+  color: var(--color-magenta);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-left: 6px;
+}
+
+/* ── Botón de solicitar ── */
+.prestamo-btn {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  align-self: center;
+  background: #57068c;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 28px;
+  cursor: pointer;
+  margin-top: 4px;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:hover {
+    background: #702b9d;
+    box-shadow: 0 4px 16px rgba(87, 6, 140, 0.3);
+  }
+}

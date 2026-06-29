@@ -1,0 +1,375 @@
+/* ── Catalog Page ── */
+.catalogo-page {
+  background-color: #f4f0f8;
+  min-height: calc(100vh - 64px);
+}
+
+/* ── Header ── */
+.catalogo-header {
+  background: #ffffff;
+  border-bottom: 1px solid #EEE6F3;
+  padding: 32px 0 20px;
+}
+
+.catalogo-header__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.catalogo-header__title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.catalogo-header__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #330662;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.catalogo-header__subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+/* ── Search Bar ── */
+.catalogo-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #EEE6F3;
+  border: 1.5px solid #D6C8E8;
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: #57068C;
+    box-shadow: 0 0 0 3px rgba(87, 6, 140, 0.12);
+  }
+}
+
+.catalogo-search__icon {
+  position: absolute;
+  left: 16px;
+  color: #7B5AA6;
+  display: flex;
+  pointer-events: none;
+}
+
+.catalogo-search__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 48px 14px 48px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #330662;
+
+  &::placeholder {
+    color: #AB82C5;
+  }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+.catalogo-search__clear {
+  position: absolute;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: #7B5AA6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #57068C;
+  }
+}
+
+/* ── Filter Chips ── */
+.catalogo-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.catalogo-filters__chip {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 18px;
+  border-radius: 24px;
+  cursor: pointer;
+  border: 1.5px solid #D6D6D6;
+  background: #ffffff;
+  color: #404040;
+  transition: all 0.18s ease;
+
+  &:hover {
+    border-color: #7B5AA6;
+    color: #57068C;
+    background: #f8f4fc;
+  }
+
+  &.active {
+    background: #57068C;
+    border-color: #57068C;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(87, 6, 140, 0.25);
+  }
+}
+
+/* ── Content Area ── */
+.catalogo-content {
+  padding: 32px 0 48px;
+}
+
+.catalogo-content__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Empty State ── */
+.catalogo-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  gap: 16px;
+  text-align: center;
+}
+
+.catalogo-empty__icon {
+  opacity: 0.6;
+}
+
+.catalogo-empty__text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+.catalogo-empty__reset {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #57068C;
+  background: #EEE6F3;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: #DDD0EF;
+  }
+}
+
+/* ── Books Grid ── */
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Book Card ── */
+.book-card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(87, 6, 140, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(87, 6, 140, 0.15);
+
+    .book-card__cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Cover */
+.book-card__cover {
+  height: 180px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.book-card__genre-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.book-card__initial {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.22);
+  line-height: 1;
+  user-select: none;
+  position: absolute;
+}
+
+.book-card__cover-icon {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  opacity: 0.5;
+}
+
+/* Info */
+.book-card__info {
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.book-card__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a0033;
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.book-card__author {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+.book-card__year {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #B8B8B8;
+  margin: 0;
+}
+
+/* Footer row */
+.book-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+/* Badges */
+.book-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+
+  .badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &.badge--available {
+    background: #EEE6F3;
+    color: #57068C;
+    .badge__dot { background: #57068C; }
+  }
+
+  &.badge--checked-out {
+    background: #f0f0f0;
+    color: #404040;
+    .badge__dot { background: #6D6D6D; }
+  }
+
+  &.badge--reserved {
+    background: #FFF4E5;
+    color: #B45309;
+    .badge__dot { background: #F59E0B; }
+  }
+}
+
+/* CTA button */
+.book-card__cta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: #57068C;
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.15s ease;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background: #702B9D;
+  }
+
+  &:disabled {
+    background: #D6D6D6;
+    color: #B8B8B8;
+    cursor: not-allowed;
+  }
+}

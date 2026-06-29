@@ -1,0 +1,163 @@
+/* ── Fondo General ── */
+.detalle-content {
+  background-color: #f4f0f8;
+  min-height: calc(100vh - 64px);
+  padding: 40px 0;
+}
+
+/* ── Breadcrumb (Navegación superior) ── */
+.detalle-breadcrumb {
+  background: #ffffff;
+  border-bottom: 1px solid #EEE6F3;
+  padding: 14px 0;
+}
+.detalle-breadcrumb__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+}
+.detalle-breadcrumb__link {
+  color: #57068C;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+.detalle-breadcrumb__link:hover {
+  text-decoration: underline;
+}
+.detalle-breadcrumb__sep {
+  color: #B8B8B8;
+}
+.detalle-breadcrumb__current {
+  color: #6D6D6D;
+}
+
+/* ── Tarjeta Visual de la Sala (La de color) ── */
+.detalle-content__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.detalle-cover {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.detalle-cover__genre-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+.detalle-cover__initial {
+  font-size: 100px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ── Textos de la Derecha ── */
+.detalle-info {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+.detalle-info__title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1F2937;
+  margin-bottom: 8px;
+}
+.detalle-info__author {
+  font-size: 18px;
+  color: #6B7280;
+  margin-bottom: 24px;
+}
+
+/* ── Metadatos (Capacidad, Equipos) ── */
+.detalle-info__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 24px 0;
+  border-top: 1px solid #F3F4F6;
+  border-bottom: 1px solid #F3F4F6;
+  margin-bottom: 24px;
+}
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.meta-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.meta-value {
+  font-size: 15px;
+  color: #374151;
+  font-weight: 500;
+}
+.status-disponible {
+  color: #10B981;
+  font-weight: 700;
+}
+
+/* ── Alertas y Botón ── */
+.detalle-alerta {
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.detalle-alerta--info {
+  background: #F0F9FF;
+  color: #0C4A6E;
+  border: 1px solid #BAE6FD;
+}
+.btn-solicitar {
+  background: #57068C;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-solicitar:hover {
+  background: #3c0461;
+}
+
+/*pop-up de SweetAlert */
+::ng-deep .mi-alerta {
+  border: 1px solid #A7F3D0 !important; 
+  border-radius: 12px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  padding: 12px !important;
+}
+
+/* barrita de tiempo que va bajando */
+::ng-deep .swal2-timer-progress-bar {
+  background-color: #10B981 !important; 
+}

@@ -1,0 +1,260 @@
+<app-navbar></app-navbar>
+
+<main class="historial__page">
+
+  <!-- ── Encabezado con estadísticas y filtros ── -->
+  <header class="historial-header">
+    <div class="historial-header__inner">
+
+      <div class="historial-header__top">
+        <div>
+          <h1 class="historial-header__title">Historial de préstamos y reservas</h1>
+          <p class="historial-header__subtitle">
+            {{ cantidadPrestamos }} préstamo{{ cantidadPrestamos !== 1 ? 's' : '' }} &nbsp;·&nbsp;
+            {{ cantidadReservas }} reserva{{ cantidadReservas !== 1 ? 's' : '' }} &nbsp;·&nbsp;
+            {{ cantidadActivos }} activo{{ cantidadActivos !== 1 ? 's' : '' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Chips de filtro -->
+      <div class="historial-filters">
+        <button
+          class="historial-filters__chip"
+          [class.active]="filtroActivo === 'todos'"
+          (click)="setFiltro('todos')">
+          Todos ({{ todosLosItems.length }})
+        </button>
+        <button
+          class="historial-filters__chip"
+          [class.active]="filtroActivo === 'prestamos'"
+          (click)="setFiltro('prestamos')">
+          <i class="bi bi-book"></i> Préstamos ({{ cantidadPrestamos }})
+        </button>
+        <button
+          class="historial-filters__chip"
+          [class.active]="filtroActivo === 'reservas'"
+          (click)="setFiltro('reservas')">
+          <i class="bi bi-door-open"></i> Reservas ({{ cantidadReservas }})
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── Lista de cards ── -->
+  <section class="historial-content">
+    <div class="historial-content__inner">
+
+      <div *ngIf="itemsFiltrados.length > 0; else sinItems" class="historial-list">
+
+        <div
+          *ngFor="let item of itemsFiltrados"
+          class="historial-card"
+          [class.historial-card--prestamo]="item.tipo === 'prestamo'"
+          [class.historial-card--reserva]="item.tipo === 'reserva'"
+          (click)="abrirModal(item)">
+
+          <!-- Ícono del tipo -->
+          <div class="historial-card__icon-wrap"
+               [class.historial-card__icon-wrap--prestamo]="item.tipo === 'prestamo'"
+               [class.historial-card__icon-wrap--reserva]="item.tipo === 'reserva'">
+            <i class="bi"
+               [class.bi-book-fill]="item.tipo === 'prestamo'"
+               [class.bi-door-open-fill]="item.tipo === 'reserva'"></i>
+          </div>
+
+          <!-- Información principal -->
+          <div class="historial-card__body">
+            <div class="historial-card__header-row">
+              <span class="historial-card__tipo-badge"
+                    [class.historial-card__tipo-badge--prestamo]="item.tipo === 'prestamo'"
+                    [class.historial-card__tipo-badge--reserva]="item.tipo === 'reserva'">
+                {{ item.tipo === 'prestamo' ? 'Préstamo' : 'Reserva' }}
+              </span>
+
+              <span class="historial-card__estado-badge"
+                    [class.historial-card__estado-badge--activo]="item.estado === 'activo'"
+                    [class.historial-card__estado-badge--finalizado]="item.estado === 'finalizado'"
+                    [class.historial-card__estado-badge--cancelado]="item.estado === 'cancelado'"
+                    [class.historial-card__estado-badge--vencido]="item.estado === 'vencido'">
+                <span class="historial-card__estado-dot"></span>
+                {{ getTextoEstado(item.estado) }}
+              </span>
+            </div>
+
+            <h2 class="historial-card__titulo">{{ item.titulo }}</h2>
+
+            <div class="historial-card__fechas">
+              <span class="historial-card__fecha">
+                <i class="bi bi-calendar3"></i>
+                Inicio: {{ item.fechaRetiro | date: 'dd/MM/yyyy' }}
+              </span>
+              <span class="historial-card__fecha" *ngIf="item.tipo === 'prestamo'">
+                <i class="bi bi-calendar3-event"></i>
+                Devolución: {{ item.fechaDevolucion | date: 'dd/MM/yyyy' }}
+              </span>
+              <span class="historial-card__fecha" *ngIf="item.tipo === 'reserva' && item.bloqueHorario">
+                <i class="bi bi-clock"></i>
+                Bloque {{ item.bloqueHorario }}: {{ getBloqueTexto(item.bloqueHorario) }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Indicador de click -->
+          <div class="historial-card__arrow">
+            <i class="bi bi-chevron-right"></i>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Estado vacío -->
+      <ng-template #sinItems>
+        <div class="historial-empty">
+          <i class="bi bi-inbox historial-empty__icon"></i>
+          <p class="historial-empty__texto">No tienes registros en este historial.</p>
+        </div>
+      </ng-template>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════
+     Modal de detalle
+     Se muestra al hacer clic en cualquier card
+════════════════════════════════════════════ -->
+<div class="modal-overlay" *ngIf="modalVisible" (click)="cerrarModal()">
+  <div class="modal-panel" (click)="$event.stopPropagation()">
+
+    <!-- Cabecera del modal -->
+    <div class="modal-panel__header"
+         [class.modal-panel__header--prestamo]="itemSeleccionado?.tipo === 'prestamo'"
+         [class.modal-panel__header--reserva]="itemSeleccionado?.tipo === 'reserva'">
+
+      <div class="modal-panel__header-icon">
+        <i class="bi"
+           [class.bi-book-fill]="itemSeleccionado?.tipo === 'prestamo'"
+           [class.bi-door-open-fill]="itemSeleccionado?.tipo === 'reserva'"></i>
+      </div>
+
+      <div class="modal-panel__header-info">
+        <span class="modal-panel__tipo">
+          {{ itemSeleccionado?.tipo === 'prestamo' ? 'Detalle del préstamo' : 'Detalle de la reserva' }}
+        </span>
+        <h2 class="modal-panel__titulo">{{ itemSeleccionado?.titulo }}</h2>
+      </div>
+
+      <button class="modal-panel__close" (click)="cerrarModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <!-- Cuerpo del modal -->
+    <div class="modal-panel__body">
+
+      <!-- Estado -->
+      <div class="modal-detalle__fila">
+        <span class="modal-detalle__etiqueta">Estado</span>
+        <span class="modal-detalle__valor">
+          <span class="historial-card__estado-badge"
+                [class.historial-card__estado-badge--activo]="itemSeleccionado?.estado === 'activo'"
+                [class.historial-card__estado-badge--finalizado]="itemSeleccionado?.estado === 'finalizado'"
+                [class.historial-card__estado-badge--cancelado]="itemSeleccionado?.estado === 'cancelado'"
+                [class.historial-card__estado-badge--vencido]="itemSeleccionado?.estado === 'vencido'">
+            <span class="historial-card__estado-dot"></span>
+            {{ getTextoEstado(itemSeleccionado?.estado ?? '') }}
+          </span>
+        </span>
+      </div>
+
+      <!-- Fecha inicio -->
+      <div class="modal-detalle__fila">
+        <span class="modal-detalle__etiqueta">
+          <i class="bi bi-calendar3"></i> Fecha de inicio
+        </span>
+        <span class="modal-detalle__valor">
+          {{ itemSeleccionado?.fechaRetiro | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+
+      <!-- Fecha devolución o fin (préstamos) -->
+      <div class="modal-detalle__fila" *ngIf="itemSeleccionado?.tipo === 'prestamo'">
+        <span class="modal-detalle__etiqueta">
+          <i class="bi bi-calendar3-event"></i> Fecha de devolución
+        </span>
+        <span class="modal-detalle__valor">
+          {{ itemSeleccionado?.fechaDevolucion | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+
+      <!-- Fecha de la reserva + bloque horario -->
+      <ng-container *ngIf="itemSeleccionado?.tipo === 'reserva'">
+        <div class="modal-detalle__fila">
+          <span class="modal-detalle__etiqueta">
+            <i class="bi bi-calendar3-event"></i> Fecha de la reserva
+          </span>
+          <span class="modal-detalle__valor">
+            {{ itemSeleccionado?.fechaRetiro | date: 'dd/MM/yyyy' }}
+          </span>
+        </div>
+        <div class="modal-detalle__fila" *ngIf="itemSeleccionado?.bloqueHorario">
+          <span class="modal-detalle__etiqueta">
+            <i class="bi bi-clock"></i> Horario
+          </span>
+          <span class="modal-detalle__valor">
+            Bloque {{ itemSeleccionado?.bloqueHorario }}
+            &nbsp;({{ getBloqueTexto(itemSeleccionado?.bloqueHorario ?? '') }})
+          </span>
+        </div>
+      </ng-container>
+
+      <!-- Sección de cancelación: solo para reservas activas -->
+      <ng-container *ngIf="itemSeleccionado?.tipo === 'reserva' && itemSeleccionado?.estado === 'activo'">
+
+        <hr class="modal-panel__divisor">
+
+        <!-- Mensaje de éxito o error dentro del modal -->
+        <div class="modal-alerta modal-alerta--exito" *ngIf="mensajeModalExito">
+          <i class="bi bi-check-circle-fill"></i> {{ mensajeModalExito }}
+        </div>
+        <div class="modal-alerta modal-alerta--error" *ngIf="mensajeModalError">
+          <i class="bi bi-exclamation-circle-fill"></i> {{ mensajeModalError }}
+        </div>
+
+        <div *ngIf="!mensajeModalExito">
+          <p class="modal-cancelar__aviso">
+            <i class="bi bi-info-circle"></i>
+            Puedes cancelar esta reserva antes de la fecha indicada. El horario quedará disponible para otros usuarios.
+          </p>
+
+          <label class="modal-cancelar__label" for="motivoCancelacion">
+            Motivo de cancelación <span class="modal-cancelar__opcional">(opcional)</span>
+          </label>
+          <textarea
+            id="motivoCancelacion"
+            class="modal-cancelar__textarea"
+            [(ngModel)]="motivoCancelacion"
+            placeholder="Ej: cambio de planes, asunto urgente..."
+            rows="3"
+            maxlength="255">
+          </textarea>
+
+          <button
+            class="modal-cancelar__btn"
+            (click)="cancelarReserva()"
+            [disabled]="cancelando">
+            <i class="bi bi-x-circle" *ngIf="!cancelando"></i>
+            <span class="modal-cancelar__spinner" *ngIf="cancelando"></span>
+            {{ cancelando ? 'Cancelando...' : 'Cancelar reserva' }}
+          </button>
+        </div>
+
+      </ng-container>
+
+    </div>
+
+  </div>
+</div>

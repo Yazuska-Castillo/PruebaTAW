@@ -1,0 +1,621 @@
+/* ══ Multas Page ══ */
+.multas-page {
+  background-color: #f4f0f8;
+  min-height: calc(100vh - 64px);
+}
+
+/* ══ Header ══ */
+.multas-header {
+  background: #ffffff;
+  border-bottom: 1px solid #EEE6F3;
+  padding: 28px 0 24px;
+}
+
+.multas-header__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.multas-header__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.multas-header__title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #330662;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.multas-header__subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+/* ══ Banner contextual ══ */
+.multas-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border-left: 4px solid transparent;
+}
+
+.multas-banner--pendiente {
+  background: rgba(87, 6, 140, 0.05);
+  border-left-color: #57068C;
+}
+
+.multas-banner--al-dia {
+  background: rgba(0, 155, 138, 0.06);
+  border-left-color: #009B8A;
+}
+
+.multas-banner__icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.multas-banner--pendiente .multas-banner__icono {
+  background: rgba(87, 6, 140, 0.1);
+  color: #57068C;
+}
+
+.multas-banner--al-dia .multas-banner__icono {
+  background: rgba(0, 155, 138, 0.1);
+  color: #009B8A;
+}
+
+.multas-banner__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.multas-banner__principal {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #330662;
+}
+
+.multas-banner--al-dia .multas-banner__principal {
+  color: #007a6e;
+}
+
+.multas-banner__secundario {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #6D6D6D;
+}
+
+.multas-banner__secundario strong {
+  font-weight: 700;
+  color: #57068C;
+}
+
+/* ══ Buscador ══ */
+.multas-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #EEE6F3;
+  border: 1.5px solid #D6C8E8;
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.multas-search:focus-within {
+  border-color: #57068C;
+  box-shadow: 0 0 0 3px rgba(87, 6, 140, 0.12);
+}
+
+.multas-search__icono {
+  position: absolute;
+  left: 16px;
+  color: #7B5AA6;
+  display: flex;
+  pointer-events: none;
+}
+
+.multas-search__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 13px 48px 13px 48px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #330662;
+}
+
+.multas-search__input::placeholder {
+  color: #AB82C5;
+}
+
+.multas-search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.multas-search__clear {
+  position: absolute;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: #7B5AA6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.multas-search__clear:hover {
+  color: #57068C;
+}
+
+/* ══ Contenido principal ══ */
+.multas-content {
+  padding: 28px 0 48px;
+}
+
+.multas-content__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ══ Chips de filtro ══ */
+.multas-filtros {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.multas-filtros__chip {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 18px;
+  border-radius: 24px;
+  cursor: pointer;
+  border: 1.5px solid #D6D6D6;
+  background: #ffffff;
+  color: #404040;
+  transition: all 0.18s ease;
+}
+
+.multas-filtros__chip:hover {
+  border-color: #7B5AA6;
+  color: #57068C;
+  background: #f8f4fc;
+}
+
+.multas-filtros__chip.active {
+  background: #57068C;
+  border-color: #57068C;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(87, 6, 140, 0.25);
+}
+
+.multas-filtros__chip--pendiente.active {
+  background: #57068C;
+  border-color: #57068C;
+  box-shadow: 0 2px 8px rgba(87, 6, 140, 0.25);
+}
+
+/* ══ Alertas ══ */
+.multas-alerta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.multas-alerta--error {
+  background: rgba(251, 15, 120, 0.08);
+  border: 1px solid rgba(251, 15, 120, 0.25);
+  color: #d10060;
+}
+
+.multas-alerta--exito {
+  background: rgba(0, 155, 138, 0.08);
+  border: 1px solid rgba(0, 155, 138, 0.25);
+  color: #007a6e;
+}
+
+/* ══ Loading ══ */
+.multas-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: 16px;
+}
+
+.multas-loading__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #EEE6F3;
+  border-top-color: #57068C;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.multas-loading__texto {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+/* ══ Estado vacío ══ */
+.multas-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  gap: 16px;
+  text-align: center;
+}
+
+.multas-vacio__texto {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+/* ══ Lista de tarjetas ══ */
+.multas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ══ Tarjeta de multa individual ══ */
+.multa-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(87, 6, 140, 0.07);
+  overflow: hidden;
+  border: 1.5px solid #EEE6F3;
+  transition: box-shadow 0.2s ease;
+}
+
+.multa-card:hover {
+  box-shadow: 0 6px 24px rgba(87, 6, 140, 0.12);
+}
+
+.multa-card--pendiente {
+  border-left: 4px solid #57068C;
+}
+
+.multa-card--pagada {
+  border-left: 4px solid #009B8A;
+}
+
+/* Cabecera de la tarjeta */
+.multa-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid #EEE6F3;
+}
+
+.multa-card__libro-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.multa-card__libro-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #EEE6F3;
+  color: #7B5AA6;
+  flex-shrink: 0;
+}
+
+.multa-card__titulo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0033;
+  margin: 0 0 2px 0;
+  line-height: 1.3;
+}
+
+.multa-card__autor {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #6D6D6D;
+  margin: 0;
+}
+
+/* Cuerpo de la tarjeta */
+.multa-card__body {
+  padding: 18px 20px 20px;
+}
+
+/* Grid de detalles */
+.multa-card__detalles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 24px;
+  margin-bottom: 20px;
+}
+
+.multa-card__dato {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.multa-card__dato-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #B8B8B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.multa-card__dato-valor {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #404040;
+}
+
+.multa-card__dato-valor--atraso {
+  color: #57068C;
+  font-weight: 700;
+}
+
+/* Footer de la tarjeta */
+.multa-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #EEE6F3;
+}
+
+.multa-card__monto-bloque {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.multa-card__monto-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #B8B8B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.multa-card__monto-valor {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.multa-card__monto-valor--pendiente {
+  color: #57068C;
+}
+
+.multa-card__monto-valor--pagada {
+  color: #009B8A;
+}
+
+.multa-card__monto-indeterminado {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #B8B8B8;
+  font-style: italic;
+}
+
+.multa-card__acciones {
+  display: flex;
+  align-items: center;
+}
+
+/* Botón Pagar */
+.btn-pagar {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #57068C;
+  border: none;
+  padding: 11px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-pagar:hover:not(:disabled) {
+  background: #702B9D;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(87, 6, 140, 0.35);
+}
+
+.btn-pagar:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-pagar:disabled {
+  background: #D6D6D6;
+  color: #B8B8B8;
+  cursor: not-allowed;
+}
+
+/* En revisión */
+.multa-card__en-revision {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6D6D6D;
+  background: #f4f0f8;
+  border: 1px solid #D6D6D6;
+  padding: 9px 16px;
+  border-radius: 8px;
+}
+
+/* Pagada ok */
+.multa-card__pagada-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #009B8A;
+  background: rgba(0, 155, 138, 0.08);
+  border: 1px solid rgba(0, 155, 138, 0.2);
+  padding: 9px 16px;
+  border-radius: 8px;
+}
+
+/* Mensajes informativos */
+.multa-card__mensaje {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.multa-card__mensaje svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.multa-card__mensaje--info {
+  background: rgba(89, 178, 209, 0.1);
+  border: 1px solid rgba(89, 178, 209, 0.25);
+  color: #2a7a96;
+}
+
+.multa-card__mensaje--admin {
+  background: rgba(87, 6, 140, 0.05);
+  border: 1px solid rgba(87, 6, 140, 0.18);
+  color: #57068C;
+}
+
+/* ══ Badges de estado de pago ══ */
+.badge-pago {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-pago__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.badge-pago--pendiente {
+  background: #EEE6F3;
+  color: #57068C;
+}
+
+.badge-pago--pendiente .badge-pago__dot {
+  background: #57068C;
+}
+
+.badge-pago--pagada {
+  background: rgba(0, 155, 138, 0.1);
+  color: #009B8A;
+}
+
+.badge-pago--pagada .badge-pago__dot {
+  background: #009B8A;
+}
+
+/* ══ Badges de estado del libro ══ */
+.badge-libro {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-libro--devuelto {
+  background: rgba(0, 155, 138, 0.1);
+  color: #009B8A;
+}
+
+.badge-libro--extraviado {
+  background: rgba(251, 15, 120, 0.1);
+  color: #FB0F78;
+}
+
+.badge-libro--pendiente {
+  background: #f4f0f8;
+  color: #7B5AA6;
+}

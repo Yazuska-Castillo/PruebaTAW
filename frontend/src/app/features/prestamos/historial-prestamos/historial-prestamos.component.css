@@ -1,0 +1,500 @@
+/* ── Página general ── */
+.historial__page {
+  background-color: #f4f0f8;
+  min-height: calc(100vh - 64px);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ── Encabezado ── */
+.historial-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #EEE6F3;
+  padding: 32px 0 0;
+}
+
+.historial-header__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-width: 600px;
+}
+
+.historial-header__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.historial-header__title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #330662;
+  margin: 0 0 6px;
+}
+
+.historial-header__subtitle {
+  font-size: 14px;
+  color: #7b5ea7;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── Chips de filtro ── */
+.historial-filters {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 20px;
+}
+
+.historial-filters__chip {
+  padding: 7px 18px;
+  border-radius: 24px;
+  border: 1.5px solid #D6D6D6;
+  background: #ffffff;
+  color: #330662;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.historial-filters__chip:hover {
+  border-color: #7B5AA6;
+  color: #57068C;
+  background: #f8f4fc;
+}
+
+.historial-filters__chip.active {
+  background-color: #57068C;
+  color: #ffffff;
+  border-color: #57068C;
+  box-shadow: 0 2px 8px rgba(87, 6, 140, 0.25);
+}
+
+/* ── Sección de contenido ── */
+.historial-content {
+  padding: 32px 0;
+}
+
+.historial-content__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-width: 600px;
+}
+
+/* ── Lista de cards ── */
+.historial-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Card base ── */
+.historial-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(87, 6, 140, 0.07);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-left: 5px solid transparent;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.historial-card:hover {
+  box-shadow: 0 6px 20px rgba(87, 6, 140, 0.13);
+  transform: translateY(-2px);
+}
+
+.historial-card--prestamo { border-left-color: #57068C; }
+.historial-card--reserva  { border-left-color: #59B2D1; }
+
+/* ── Ícono del tipo ── */
+.historial-card__icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.historial-card__icon-wrap--prestamo { background-color: #EEE6F3; color: #57068C; }
+.historial-card__icon-wrap--reserva  { background-color: #dff0f7; color: #2e91b6; }
+
+/* ── Cuerpo de la card ── */
+.historial-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.historial-card__header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+/* Badge de tipo */
+.historial-card__tipo-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.historial-card__tipo-badge--prestamo { background-color: #EEE6F3; color: #57068C; }
+.historial-card__tipo-badge--reserva  { background-color: #dff0f7; color: #2e91b6; }
+
+/* Badge de estado */
+.historial-card__estado-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.historial-card__estado-badge--activo     { background-color: #e0f7f4; color: #007a6a; }
+.historial-card__estado-badge--finalizado { background-color: #f0f0f0; color: #666666; }
+.historial-card__estado-badge--cancelado  { background-color: #fff0f0; color: #c0392b; }
+.historial-card__estado-badge--vencido    { background-color: #fff5e0; color: #b35c00; }
+
+.historial-card__estado-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.historial-card__estado-badge--activo     .historial-card__estado-dot { background-color: #009B8A; }
+.historial-card__estado-badge--finalizado .historial-card__estado-dot { background-color: #999999; }
+.historial-card__estado-badge--cancelado  .historial-card__estado-dot { background-color: #e74c3c; }
+.historial-card__estado-badge--vencido    .historial-card__estado-dot { background-color: #e67e22; }
+
+/* Título */
+.historial-card__titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a0033;
+  margin: 0 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fechas apiladas verticalmente */
+.historial-card__fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.historial-card__fecha {
+  font-size: 13px;
+  color: #6b5a80;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.historial-card__fecha i { color: #9b7bbf; }
+
+/* Flecha derecha de la card */
+.historial-card__arrow {
+  color: #c4b0d8;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.historial-card:hover .historial-card__arrow { color: #57068C; }
+
+/* ── Estado vacío ── */
+.historial-empty {
+  text-align: center;
+  padding: 60px 24px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(87, 6, 140, 0.07);
+}
+
+.historial-empty__icon {
+  font-size: 48px;
+  color: #c4b0d8;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.historial-empty__texto {
+  font-size: 16px;
+  color: #7b5ea7;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════════
+   Modal de detalle
+════════════════════════════════════════════ */
+
+/* Fondo oscuro detrás del modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 0, 60, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: fadeInOverlay 0.1s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Panel central del modal */
+.modal-panel {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 60px rgba(87, 6, 140, 0.22);
+  overflow: hidden;
+  animation: fadeInPanel 0.1s ease;
+}
+
+@keyframes fadeInPanel {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Cabecera del modal con color según tipo */
+.modal-panel__header {
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #EEE6F3;
+}
+
+.modal-panel__header--prestamo { background: linear-gradient(135deg, #f8f2ff 0%, #EEE6F3 100%); }
+.modal-panel__header--reserva  { background: linear-gradient(135deg, #edf7fc 0%, #c8e9f5 100%); }
+
+.modal-panel__header-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.modal-panel__header--prestamo .modal-panel__header-icon { background: #EEE6F3; color: #57068C; }
+.modal-panel__header--reserva  .modal-panel__header-icon { background: #c5e8f5; color: #2e91b6; }
+
+.modal-panel__header-info { flex: 1; min-width: 0; }
+
+/* Color del subtítulo según tipo de header */
+.modal-panel__tipo {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.modal-panel__header--prestamo .modal-panel__tipo { color: #7b5ea7; }
+.modal-panel__header--reserva  .modal-panel__tipo { color: #2278a0; }
+
+.modal-panel__titulo {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a0033;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-panel__close {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.modal-panel__header--prestamo .modal-panel__close {
+  background: rgba(87, 6, 140, 0.08);
+  color: #57068C;
+}
+.modal-panel__header--prestamo .modal-panel__close:hover { background: rgba(87, 6, 140, 0.16); }
+
+.modal-panel__header--reserva .modal-panel__close {
+  background: rgba(46, 145, 182, 0.1);
+  color: #2278a0;
+}
+.modal-panel__header--reserva .modal-panel__close:hover { background: rgba(46, 145, 182, 0.2); }
+
+/* Cuerpo del modal */
+.modal-panel__body {
+  padding: 24px;
+}
+
+/* Filas de detalle */
+.modal-detalle__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f3edf9;
+  font-size: 14px;
+}
+
+.modal-detalle__fila:last-of-type { border-bottom: none; }
+
+.modal-detalle__etiqueta {
+  color: #7b5ea7;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.modal-detalle__valor {
+  color: #1a0033;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Divisor */
+.modal-panel__divisor {
+  border: none;
+  border-top: 1px solid #EEE6F3;
+  margin: 16px 0;
+}
+
+/* Alertas dentro del modal */
+.modal-alerta {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.modal-alerta--exito { background: #e0f7f4; color: #007a6a; }
+.modal-alerta--error { background: #fff0f0; color: #c0392b; }
+
+/* Sección de cancelación */
+.modal-cancelar__aviso {
+  font-size: 13px;
+  color: #6b5a80;
+  background: #f8f4fc;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.modal-cancelar__aviso i { color: #9b7bbf; margin-top: 2px; flex-shrink: 0; }
+
+.modal-cancelar__label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #330662;
+  margin-bottom: 6px;
+}
+
+.modal-cancelar__opcional {
+  font-weight: 400;
+  color: #9b7bbf;
+}
+
+.modal-cancelar__textarea {
+  width: 100%;
+  border: 1.5px solid #d5b8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #1a0033;
+  resize: none;
+  outline: none;
+  transition: border-color 0.18s;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.modal-cancelar__textarea:focus { border-color: #57068C; }
+
+.modal-cancelar__btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #c0392b;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.18s, opacity 0.18s;
+}
+
+.modal-cancelar__btn:hover:not([disabled]) { background: #a93226; }
+.modal-cancelar__btn[disabled] { opacity: 0.65; cursor: not-allowed; }
+
+/* Spinner pequeño dentro del botón */
+.modal-cancelar__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

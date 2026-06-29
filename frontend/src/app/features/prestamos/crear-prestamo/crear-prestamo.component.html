@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+
+<main class="crear-prestamo__page">
+  <div class="crear-prestamo__inner">
+    <div class="container-prestamo">
+      <!-- Título -->
+      <h1 class="container-prestamo__title">Libro seleccionado:</h1>
+
+      <!-- Tarjeta del libro seleccionado -->
+      <div class="book-card">
+        <div
+          class="book-card__cover"
+          [style.background]="
+            'linear-gradient(145deg, ' +
+            getCoverColor(libro.categoria ?? null) +
+            ', ' +
+            getCoverAccent(libro.categoria ?? null) +
+            ')'
+          "
+        >
+          <span class="book-card__genre-tag">{{ libro.categoria }}</span>
+          <span class="book-card__initial">{{ getInitial(libro.titulo ?? null) }}</span>
+          <svg
+            class="book-card__cover-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="rgba(255,255,255,0.18)"
+            stroke-width="1.2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+            />
+          </svg>
+        </div>
+        <div class="book-card__info">
+          <h3 class="book-card__title">{{ libro.titulo }}</h3>
+          <p class="book-card__author">{{ libro.autor }}</p>
+          <p class="book-card__year">
+            {{ libro.anio ? (libro.anio | slice:0:4) : '' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Formulario de fechas -->
+      <form class="prestamo-form" #prestamoForm="ngForm">
+        <div class="prestamo-form__group">
+          <label class="prestamo-form__label" for="fecha-retiro"
+            >Fecha de retiro</label
+          >
+          <input
+            class="prestamo-form__input"
+            type="date"
+            id="fecha-retiro"
+            name="fecha-retiro"
+            min="{{ today }}"
+            required
+            #fechaRetiro
+            [class.error-border]="!fechaRetiro.value && prestamoForm.submitted"
+          />
+          <!-- Mensaje de error cuando no se ha seleccionado una fecha de retiro -->
+          <span
+            class="texto-error"
+            *ngIf="!fechaRetiro.value && prestamoForm.submitted"
+          >
+            La fecha de retiro es obligatoria.
+          </span>
+        </div>
+
+        <div class="prestamo-form__group">
+          <label class="prestamo-form__label" for="fecha-devolucion"
+            >Fecha de devolución</label
+          >
+          <input
+            class="prestamo-form__input"
+            type="date"
+            id="fecha-devolucion"
+            name="fecha-devolucion"
+            min="{{ today }}"
+            required
+            #fechaDevolucion
+            [class.error-border]="
+              (!fechaDevolucion.value ||
+                fechaDevolucion.value < fechaRetiro.value) &&
+              prestamoForm.submitted
+            "
+          />
+          <!-- Mensaje de error cuando no se ha seleccionado una fecha de devolución -->
+          <span
+            class="texto-error"
+            *ngIf="!fechaDevolucion.value && prestamoForm.submitted"
+          >
+            La fecha de devolución es obligatoria.
+          </span>
+          <!-- Mensaje de error cuando la fecha de devolución es anterior a la fecha de retiro -->
+          <span
+            class="texto-error"
+            *ngIf="
+              fechaDevolucion.value < fechaRetiro.value &&
+              prestamoForm.submitted
+            "
+          >
+            La fecha de devolución debe ser posterior a la fecha de retiro.
+          </span>
+        </div>
+
+        <!-- Botón para solicitar préstamo -->
+        <button type="submit" class="prestamo-btn">Solicitar préstamo</button>
+      </form>
+    </div>
+  </div>
+</main>
