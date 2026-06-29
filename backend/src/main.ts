@@ -14,7 +14,13 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors();
+  app.enableCors({
+      origin: [
+        'http://localhost:4200',
+        'https://prueba-taw-hpan.vercel.app'
+      ],
+      credentials: true,
+    });
 
   const config = new DocumentBuilder()
     .setTitle('API Biblioteca')
