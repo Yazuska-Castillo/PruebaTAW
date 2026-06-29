@@ -1,9 +1,9 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
-import { JwtAuthGuard } from 'src/security/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../security/guards/jwt-auth.guard';
 
-import { ValidacionesService } from 'src/providers/validaciones.service';
+import { ValidacionesService } from '../../providers/validaciones.service';
 
 @ApiTags('Validaciones')
 @ApiBearerAuth()
