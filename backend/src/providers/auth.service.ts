@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 
 import { UsuarioEntity } from '../database/entities/usuario.entity';
 import { LoginRequestDto } from '../dto/login-request.dto';
@@ -31,7 +31,7 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
-    const passwordCorrecta = await bcrypt.compare(
+    const passwordCorrecta = await bcryptjs.compare(
       dto.password,
       usuario.passwordHash,
     );
